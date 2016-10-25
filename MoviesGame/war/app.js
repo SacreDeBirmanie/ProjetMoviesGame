@@ -171,7 +171,6 @@
             this.affiche_res =false;
             $scope.sscore = this.score; 
             $scope.addScore();
-            alert('Jeu Terminé ! :) Votre score est :'+this.score+"/"+donnees.length+".");
             this.i=0;
             this.score=0;
             this.affiche_form = false;
