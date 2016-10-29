@@ -33,7 +33,7 @@
       <tr>
         <td><a href="/admin/update_datastore">je veux mettre a jour le datastore</a></td>
         <tr>
-        <td><a href="/admin/update_datastore">je veux accéder à l'API</a></td>
+        <td><a href="/_ah/api/explorer">je veux accéder à l'API</a></td>
       </tr>
       </tr>
     </table>
