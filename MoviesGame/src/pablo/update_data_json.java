@@ -107,6 +107,9 @@ public class update_data_json {
 					 movieobjname = (JSONObject) movieobj.get("id_wiki");
 					 String id_wiki = (String) movieobjname.get("value");
 					 
+					 movieobjname = (JSONObject) movieobj.get("id_wiki_director");
+					 String id_wiki_director = (String) movieobjname.get("value");
+					 
 
 					 
 					 boolean bool_check_date = date_movie.after(date_initial);
@@ -128,6 +131,7 @@ public class update_data_json {
 									 System.out.println("lat : "+lat);
 									 System.out.println("longi : "+longi);
 									 System.out.println("id_wiki : "+id_wiki);
+									 System.out.println("id_wiki_director : "+"d"+id_wiki_director);
 									 System.out.println("-----------------------------------------------------");
 								 }else{
 									resp.getWriter().println("name : "+name);
@@ -137,6 +141,7 @@ public class update_data_json {
 									resp.getWriter().println("lat : "+lat);
 									resp.getWriter().println("longi : "+longi);
 									resp.getWriter().println("id_wiki : "+id_wiki);
+									resp.getWriter().println("id_wiki_director : "+"d"+id_wiki_director);
 									Entity e;
 									if(lat!="NAN"||longi!="NAN"){
 										e = new Entity("movies", "m"+id_wiki);
@@ -146,6 +151,7 @@ public class update_data_json {
 										e.setProperty("country", country);
 										e.setProperty("lat", lat);
 										e.setProperty("longi", longi);
+										e.setProperty("id_wiki_director", "d"+id_wiki_director);
 				     				    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 										datastore.put(e);
 										 resp.getWriter().println("date max = "+date_upt);

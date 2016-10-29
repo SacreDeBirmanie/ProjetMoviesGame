@@ -58,7 +58,7 @@ public class update {
 		
 		datastore = DatastoreServiceFactory.getDatastoreService();
 		Key cle_date_movies = KeyFactory.createKey("date_update_movies",1);
-		Key cle_date_productors = KeyFactory.createKey("date_update_productors",1);
+		Key cle_date_productors = KeyFactory.createKey("date_update_directors",1);
 		try {
 			Entity dateTrouve = datastore.get(cle_date_movies);
 			Date valeur_dateTrouve = (Date) dateTrouve.getProperty("valeur");

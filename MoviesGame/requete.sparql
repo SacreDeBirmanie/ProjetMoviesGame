@@ -12,7 +12,7 @@ PREFIX dbo: <http://dbpedia.org/ontology/>
 PREFIX dbp: <http://dbpedia.org/property/>
 PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 
-Select ?name ?name_director ?country ?lat ?longi ?date ?id_wiki where
+Select ?name ?name_director ?country ?lat ?longi ?date ?id_wiki ?id_wiki_director where
 {
         ?x rdf:type dbo:Film.
         ?x dbp:name ?name.
@@ -26,6 +26,7 @@ Select ?name ?name_director ?country ?lat ?longi ?date ?id_wiki where
         ?x dbo:wikiPageID ?id_wiki.
         ?country geo:lat ?lat.
         ?country geo:long ?longi.
+        ?director dbo:wikiPageID ?id_wiki_director.
 }
 group by ?director
 order by ?date
