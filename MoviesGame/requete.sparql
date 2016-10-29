@@ -1,0 +1,46 @@
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX : <http://dbpedia.org/resource/>
+PREFIX dbpedia2: <http://dbpedia.org/property/>
+PREFIX dbpedia: <http://dbpedia.org/>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+Select ?name ?name_director ?country ?lat ?longi ?date ?id_wiki where
+{
+        ?x rdf:type dbo:Film.
+        ?x dbp:name ?name.
+        FILTER (LANG(?name)='en').
+        ?x dbp:released ?date.
+        FILTER(datatype(?date)=xsd:date)
+        ?x dbp:country ?country.
+        ?x dbo:director ?director.
+        ?director dbp:name ?name_director.
+        FILTER (?date > '1990-01-01'^^xsd:dateTime).
+        ?x dbo:wikiPageID ?id_wiki.
+        ?country geo:lat ?lat.
+        ?country geo:long ?longi.
+}
+group by ?director
+order by ?date
+
+
+Select ?name_director ?id_wiki where
+{
+        ?x rdf:type dbo:Film.
+        ?x dbo:director ?director.
+        ?director dbp:name ?name_director.
+        ?x dbp:country ?country.
+        ?director dbo:wikiPageID ?id_wiki.
+}
+LIMIT 1000
+
+
+947 movies 
+800 directors
