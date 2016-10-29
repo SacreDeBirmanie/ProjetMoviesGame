@@ -3,6 +3,7 @@ package pablo;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.*;
@@ -28,8 +29,10 @@ public class MadeuxiemeappServlet extends HttpServlet {
 //////////////////////////////////////////////////////////////////////////////////////////
 // mettre à faux pour ajouter des directors mais attention pour l'ajout des directors il ne faut pas actualiser la page 
 //			sinon ils sont ajoutés en double !!!
-			upd.step3(resp,true);
-
+//			upd.step3(resp,true);
+			
+//			generate_list_questions list_questions_reponses = new generate_list_questions(resp);
+//			list_questions_reponses.afficher_tout(resp);
 
 		} catch (Exception e) {
 	    	resp.getWriter().println("UNE ERREUR S'EST PRODUIT !!!!!");
