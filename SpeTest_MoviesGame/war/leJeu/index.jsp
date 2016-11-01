@@ -1,0 +1,71 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
+<%@ page import="com.google.appengine.api.users.User" %>
+<%@ page import="com.google.appengine.api.users.UserService" %>
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
+
+<!DOCTYPE html>
+<html ng-app="plunker">
+
+  <head>
+    <meta charset="utf-8" />
+    <title>Movies Game :)</title>
+    <script>document.write('<base href="' + document.location + '" />');</script>
+    <link href="style.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://code.angularjs.org/1.5.8/angular.js" data-require="angular.js@1.5.x" data-semver="1.5.8"></script>
+    <script type="text/javascript" src="app.js"></script>
+  </head>
+
+  <body>
+  
+<% UserService userService = UserServiceFactory.getUserService(); %>
+<h1><%= userService.getCurrentUser().getNickname() %>, a toi de jouer :D</h1>
+<p><a href="<%= userService.createLogoutURL("/") %>">Se déconnecter</a></p>
+
+
+    <div ng-controller="madonnee_dynamique as mydonnee_dynamique">
+    <div ng-show="mydonnee_dynamique.affiche_connection">
+      <p>Hello !</p>
+      <p>Veuillez entrer votre nom : </p>
+      <form name="reviewForm_dynamique" ng-submit="mydonnee_dynamique.donne_nom()">
+        <label><input type="text" name="cbox2" ng-model="mydonnee_dynamique.monnom"></label><br>
+        <label><input type="number" name="cbox2" ng-model="mydonnee_dynamique.monid"></label><br>
+        {{mydonnee_dynamique.monnom}}
+        {{mydonnee_dynamique.monid}}
+        <input type="submit" value="Valider"/>
+      </form>
+    </div>
+    
+      <div class="question" ng-show="mydonnee_dynamique.affiche_form">
+        <p>A vous de jouer {{mydonnee_dynamique.monnom}}</p>
+        <p>HightScore : {{mydonnee_dynamique.hightscore}}</p>
+        <p>Votre Score : {{mydonnee_dynamique.score}}</p>
+        <h1>Question {{mydonnee_dynamique.i+1}}/{{mydonnee_dynamique.nb_question}}</h1>
+        <p>{{mydonnee_dynamique.madonnee.question}}</p>
+        <form name="reviewForm_dynamique" ng-submit="mydonnee_dynamique.donne_reponse()">
+          <label><input type="radio" name="cbox2" ng-model="mydonnee_dynamique.myreponse" value="1">{{mydonnee_dynamique.madonnee.reponse1}}</label><br>
+          <label><input type="radio" name="cbox2" ng-model="mydonnee_dynamique.myreponse" value="2">{{mydonnee_dynamique.madonnee.reponse2}}</label><br>
+          <label><input type="radio" name="cbox2" ng-model="mydonnee_dynamique.myreponse" value="3">{{mydonnee_dynamique.madonnee.reponse3}}</label><br>
+          <input type="submit" value="Valider"/>
+        </form>
+      </div>
+      <div class="reponse" ng-show="mydonnee_dynamique.affiche_res">
+        <h1 >la rÃ©ponse Ã©tait : {{mydonnee_dynamique.rep}}</h1>
+        <form name="reviewForm_dynamique" ng-submit="mydonnee_dynamique.suivant_inter()">
+          <input type="submit" value="Suivant" />
+        </form>
+      </div>
+    </div>
+  </body>
+
+</html>
+
+<script>
+  var init = function() {
+    console.log("init called");
+    window.init();
+  };
+</script>
+
+<script src="https://apis.google.com/js/client.js?onload=init"></script>
