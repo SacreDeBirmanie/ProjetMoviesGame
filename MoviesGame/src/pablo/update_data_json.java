@@ -51,8 +51,8 @@ public class update_data_json {
 	//ajout des directors limité à 800
 	public int go_update(HttpServletResponse resp){
 		int count = 1;
-		int cpt_add = 1;
-		 
+		int cpt_add = 0;
+		 int count_movies=0;
 		 JSONParser parser = new JSONParser();
 		 try {
 			 Object obj;
@@ -62,16 +62,22 @@ public class update_data_json {
 				date_upt = this.date_update;
 			else
 				date_upt = dfm.parse("1989-01-01");
-			
-			Date date_initial = date_upt;
-			if(resp!=null)
-				resp.getWriter().println("Date initial : "+date_initial);
 
-			 ArrayList<String> list_id_wiki = new ArrayList();
+			Date date_initial = date_upt;
+
+			 ArrayList<String> list_id_wiki = new ArrayList<String>();
 
 			 if(this.update_movies)
 			 {
-
+				if(resp!=null){
+					resp.getWriter().println("Date initial : "+date_initial);
+					DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+					Key cle_count_movies = KeyFactory.createKey("count_movies", 1);
+					Entity count_trouve = datastore.get(cle_count_movies );
+					long count_movies_long = (long) count_trouve.getProperty("valeur");
+					count_movies = (int) count_movies_long;
+					cpt_add=count_movies;
+				}
 				 obj = parser.parse(new FileReader("donnees_movies.json"));
 //				 obj = parser.parse(new FileReader("donneestest.json"));
 				 JSONArray jsonarray;
@@ -119,7 +125,6 @@ public class update_data_json {
 							 count++;
 							 if(count<=500){
 								 list_id_wiki.add(id_wiki);
-								 cpt_add++;
 								 boolean bool_date = date_movie.after(date_upt);
 								 if(bool_date)
 									 date_upt=date_movie;
@@ -134,6 +139,8 @@ public class update_data_json {
 									 System.out.println("id_wiki_director : "+"d"+id_wiki_director);
 									 System.out.println("-----------------------------------------------------");
 								 }else{
+									DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+									resp.getWriter().println("id : "+cpt_add);
 									resp.getWriter().println("name : "+name);
 									resp.getWriter().println("name_director : "+name_director);
 									resp.getWriter().println("date : "+date);
@@ -144,7 +151,9 @@ public class update_data_json {
 									resp.getWriter().println("id_wiki_director : "+"d"+id_wiki_director);
 									Entity e;
 									if(lat!="NAN"||longi!="NAN"){
-										e = new Entity("movies", "m"+id_wiki);
+										cpt_add++;
+										e = new Entity("movies",cpt_add);
+										e.setProperty("wiki_movie",id_wiki);
 										e.setProperty("name", name);
 										e.setProperty("name_director", name_director);
 										e.setProperty("date", date);
@@ -152,7 +161,7 @@ public class update_data_json {
 										e.setProperty("lat", lat);
 										e.setProperty("longi", longi);
 										e.setProperty("id_wiki_director", "d"+id_wiki_director);
-				     				    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+				     				    datastore = DatastoreServiceFactory.getDatastoreService();
 										datastore.put(e);
 										 resp.getWriter().println("date max = "+date_upt);
 										resp.getWriter().println("Add Data succesfull");
@@ -164,8 +173,23 @@ public class update_data_json {
 					 }
 				 }
 					System.out.println("date max = "+date_upt);
+					 if(cpt_add>count_movies&&this.update_movies&&resp!=null){
+						 try{	
+							DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+							Entity e;
+							e = new Entity("count_movies", 1);
+							e.setProperty("valeur",cpt_add);
+							datastore.put(e);
+						 } catch (Exception e){
+							 try{
+								 resp.getWriter().println("Problème survenue lors de la modification de count movie !");
 
+							 } catch (Exception ex){
+							 }
+						 }
+					 }
 			 }else{
+
 				 obj = parser.parse(new FileReader("donnees_directors.json"));
 
 				 JSONArray jsonarray;
@@ -194,11 +218,13 @@ public class update_data_json {
 								 System.out.println("name_director : "+name_director);
 								 System.out.println("-----------------------------------------------------");
 							 }else{
+								DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 								resp.getWriter().println("name_director : "+name_director);
 								Entity e;
-								e = new Entity("directors", "d"+id_wiki);
+								e = new Entity("directors", cpt_add );
+								e.setProperty("wiki_director", "d"+id_wiki);
 								e.setProperty("name_director", name_director);
-		     				    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+		     				    datastore = DatastoreServiceFactory.getDatastoreService();
 								datastore.put(e);
 								resp.getWriter().println("Add Data succesfull");
 								resp.getWriter().println("-----------------------------------------------------");
@@ -209,11 +235,12 @@ public class update_data_json {
 			 }
 
 			 if(resp!=null&&this.update_movies){
+				DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 				 Entity e;
 				 resp.getWriter().println("date max = "+date_upt);
 				 e = new Entity("date_update_movies", 1);
 				 e.setProperty("valeur", date_upt);
-                 DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+                 datastore = DatastoreServiceFactory.getDatastoreService();
 				 datastore.put(e);
 			 } 
 			 this.date_update=date_upt;
@@ -227,6 +254,7 @@ public class update_data_json {
 				 }
 			 e.printStackTrace();
 		 }
+
 		return cpt_add;
 
 	}

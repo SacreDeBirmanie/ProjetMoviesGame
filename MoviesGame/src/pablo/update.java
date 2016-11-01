@@ -47,6 +47,30 @@ public class update {
 		}
 	}
 	
+	public void step1bis(HttpServletResponse resp){
+		DatastoreService datastore;
+		//////////////////////////////////////////////////////////////////////////////////////////
+		/////////////////////////AJOUT DE LA date_update initiale/////////////////////////////////			
+		//////////////////////////////////////////////////////////////////////////////////////////
+		//
+		try{
+			datastore = DatastoreServiceFactory.getDatastoreService();
+
+			Entity e;
+			e = new Entity("count_movies", 1);
+			e.setProperty("valeur", 0);
+			datastore.put(e);
+			e = new Entity("count_directors", 1);
+			e.setProperty("valeur", 800);
+			datastore.put(e);
+			resp.getWriter().println("Datastore Update : count_movies and count_directors");
+		} catch (Exception e){
+			try{
+				resp.getWriter().println("Problème step 1bis");
+			} catch (Exception ex){}
+		}
+	}
+	
 	//verification des dates updates
 	public void step2(HttpServletResponse resp){
 
@@ -84,13 +108,16 @@ public class update {
 		//////////////////////////////////////////////////////////////////////////////////////////
 		
 		//Test pour l'ajout des movies//
+		
 		try{
 			update_data_json update = new update_data_json(resp,add_movies);
-			if(add_movies){
-				resp.getWriter().println("Ajout movies !! ");
-				resp.getWriter().println("Voici la date_update pour l'instant : "+update.getDate_update());
-			}else{
-				resp.getWriter().println("Ajout directors !! ");
+			if(resp!=null){
+				if(add_movies){
+					resp.getWriter().println("Ajout movies !! ");
+					resp.getWriter().println("Voici la date_update pour l'instant : "+update.getDate_update());
+				}else{
+					resp.getWriter().println("Ajout directors !! ");
+				}
 			}
 			int nb_add_data = update.go_update(resp)-1;
 			if(nb_add_data>0){

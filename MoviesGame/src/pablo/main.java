@@ -1,8 +1,5 @@
 package pablo;
 
-import java.util.GregorianCalendar;
-import java.util.Random;
-
 public class main {
 
 	public static void main(String[] args) {
@@ -12,9 +9,16 @@ public class main {
 //		System.out.println("ajout de "+(num_data-1)+" données.");
 //		System.out.println(update_data.getDate_update());
 
-//		question_reponses ques_rep = new question_reponses(null);
-		generate_list_questions list_questions_reponses = new generate_list_questions(null);
-		list_questions_reponses.afficher_tout(null);
+		update upd = new update();
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//upd.step1(resp);
+	//upd.step1bis(resp);
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//upd.step2(resp);
+	//////////////////////////////////////////////////////////////////////////////////////////
+	//mettre à faux pour ajouter des directors mais attention pour l'ajout des directors il ne faut pas actualiser la page 
+	//sinon ils sont ajoutés en double !!!
+		upd.step3(null,false);
 
 	}
 
