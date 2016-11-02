@@ -16,9 +16,11 @@ public class GetUsersServlet extends HttpServlet {
     UserService userService = UserServiceFactory.getUserService();
     
     String nomUser = null;
-    if (userService.getCurrentUser() != null)
+    String idUser = null;
+    if (userService.getCurrentUser() != null){
     	nomUser = userService.getCurrentUser().getNickname();
-    	String idUser = userService.getCurrentUser().getUserId();
+    	idUser = userService.getCurrentUser().getUserId();
+    }
 
 
     req.setAttribute( "nomUser", nomUser );
