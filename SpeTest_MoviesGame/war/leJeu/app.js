@@ -27,7 +27,7 @@
         gapi.client.scoresendpoint.listscores().execute(
           function(resp){
             $scope.scores = resp.items; 
-            $score.$apply();
+            $scope.$apply();
             console.log(resp);
           });
         
@@ -35,7 +35,7 @@
       
       $window.init= function(){
         console.log("window init called");
-        var rootApi = "https://moviesgame-147318.appspot.com/_ah/api/";
+        var rootApi = "https://1-dot-montestamoi-147719.appspot.com/_ah/api/";
         gapi.client.load('scoresendpoint','v1',function(){
           console.log('score api loaded');
           $scope.listScore();
@@ -192,4 +192,3 @@
 
 
 })();
-

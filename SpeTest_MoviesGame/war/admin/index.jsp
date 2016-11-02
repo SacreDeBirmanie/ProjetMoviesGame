@@ -20,6 +20,15 @@
   </head>
 
   <body>
+   <p>
+  <% 
+
+            String attribut = (String) request.getAttribute("nomUser");
+
+            out.println( attribut );
+
+            %>
+</p>
   <% UserService userService = UserServiceFactory.getUserService(); %>
   <h1><%= userService.getCurrentUser().getNickname() %>, soit le bienvenue dans la page d'administration du jeu MoviesGame!</h1>
   

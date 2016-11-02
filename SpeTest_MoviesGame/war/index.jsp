@@ -20,16 +20,22 @@
   </head>
 
   <body>
+   <p>
+  <% 
 
-    <% UserService userService = UserServiceFactory.getUserService(); %>
-  <% if (userService.getCurrentUser() == null) { %>
+            String nomUser = (String) request.getAttribute("nomUser");
+
+         if (request.getAttribute("nomUser") == null){
+         String urlCo = (String) request.getAttribute("urlCo");%>
    			<h1>jeune inconnu(e), soit le bienvenue dans la page d'acceuil du jeu MoviesGame!</h1>
-			<p><a href="<%= userService.createLoginURL("/") %>">Se connecter</a></p>
-		<% }
+			<p><a href="<% out.println( urlCo ); %>">Se connecter</a></p>
+	<% 	}
 		else { %>
-			<p>Bonjour <%= userService.getCurrentUser().getNickname() %>, content de te revoir :)</p>
-			<p><a href="<%= userService.createLogoutURL("/") %>">Se déconnecter</a></p>
+		<%String urlDeco = (String) request.getAttribute("urlDeco");%>
+			<p>Bonjour <% out.println( nomUser ); %>, content de te revoir :)</p>
+			<p><a href="<% out.println(urlDeco); %>">Se déconnecter</a></p>
 		<% } %>
+	</p>
         
     <table>
       <tr>

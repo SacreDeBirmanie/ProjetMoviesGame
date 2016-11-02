@@ -77,7 +77,7 @@ public class scoresEndpoint {
    * @return The entity with primary key id.
    */
   @ApiMethod(name = "getscores")
-  public scores getscores(@Named("id") Long id) {
+  public scores getscores(@Named("id") String id) {
     PersistenceManager mgr = getPersistenceManager();
     scores scores  = null;
     try {
@@ -139,7 +139,7 @@ public class scoresEndpoint {
    * @param id the primary key of the entity to be deleted.
    */
   @ApiMethod(name = "removescores")
-  public void removescores(@Named("id") Long id) {
+  public void removescores(@Named("id") String id) {
     PersistenceManager mgr = getPersistenceManager();
     try {
       scores scores = mgr.getObjectById(scores.class, id);

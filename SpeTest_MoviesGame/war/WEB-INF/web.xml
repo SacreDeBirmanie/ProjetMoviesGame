@@ -7,6 +7,25 @@
 		<servlet-name>update_datastore</servlet-name>
 		<url-pattern>/admin/update_datastore</url-pattern>
 	</servlet-mapping>
+	
+	 <servlet>
+		<servlet-name>getUser</servlet-name>
+		<servlet-class>users.GetUsersServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>getUser</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	
+	 <servlet>
+		<servlet-name>get10Questions</servlet-name>
+		<servlet-class>administration.Generate10QuestionsServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>get10Questions</servlet-name>
+		<url-pattern>/leJeu/get10Questions</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
@@ -23,6 +42,8 @@
   <servlet-name>SystemServiceServlet</servlet-name>
   <url-pattern>/_ah/spi/*</url-pattern>
  </servlet-mapping>
+ 
+ 
  
  <security-constraint>
         <web-resource-collection>

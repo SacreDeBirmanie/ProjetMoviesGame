@@ -10,16 +10,16 @@ import javax.jdo.annotations.PrimaryKey;
 public class scores {
 	@PrimaryKey
 	@Persistent(valueStrategy=IdGeneratorStrategy.IDENTITY)
-	Long id;
+	String id;
 
 	@Persistent
 	String name;
 	@Persistent
 	int score;
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getName() {

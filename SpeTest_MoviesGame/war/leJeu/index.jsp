@@ -1,10 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-
-<%@ page import="com.google.appengine.api.users.User" %>
-<%@ page import="com.google.appengine.api.users.UserService" %>
-<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
-
 <!DOCTYPE html>
 <html ng-app="plunker">
 
@@ -18,25 +11,32 @@
   </head>
 
   <body>
-  
-<% UserService userService = UserServiceFactory.getUserService(); %>
-<h1><%= userService.getCurrentUser().getNickname() %>, a toi de jouer :D</h1>
-<p><a href="<%= userService.createLogoutURL("/") %>">Se déconnecter</a></p>
+  <%
 
+            String nomUser = (String) request.getAttribute("nomUser");
+  			String idUser = (String) request.getAttribute("idUser");
 
+         if (request.getAttribute("nomUser") == null){
+         String urlCo = (String) request.getAttribute("urlCo");%>
+   			<h1>jeune inconnu(e), soit le bienvenue dans la page d'acceuil du jeu MoviesGame!</h1>
+			<p><a href="<% out.println( urlCo ); %>">Se connecter</a></p>
+	<% 	}
+		else { %>
+		<%String urlDeco = (String) request.getAttribute("urlDeco");%>
+			<p>Bonjour <% out.println( nomUser ); %>, content de te revoir :)</p>
+			<p><a href="<% out.println(urlDeco); %>">Se d�connecter</a></p>
+		<% } %>
+	
     <div ng-controller="madonnee_dynamique as mydonnee_dynamique">
     <div ng-show="mydonnee_dynamique.affiche_connection">
-      <p>Hello !</p>
-      <p>Veuillez entrer votre nom : </p>
       <form name="reviewForm_dynamique" ng-submit="mydonnee_dynamique.donne_nom()">
-        <label><input type="text" name="cbox2" ng-model="mydonnee_dynamique.monnom"></label><br>
-        <label><input type="number" name="cbox2" ng-model="mydonnee_dynamique.monid"></label><br>
-        {{mydonnee_dynamique.monnom}}
-        {{mydonnee_dynamique.monid}}
-        <input type="submit" value="Valider"/>
+        <label><input type="hidden" ng-init="mydonnee_dynamique.monnom='<% out.print(nomUser); %>'"></label><br>
+        <label><input type="hidden" ng-init="mydonnee_dynamique.monid='<%out.print(idUser);%>'"></label><br>
+    
+  <% out.println(idUser);%>
+        <input type="submit" value="Commencer le jeu"/>
       </form>
     </div>
-    
       <div class="question" ng-show="mydonnee_dynamique.affiche_form">
         <p>A vous de jouer {{mydonnee_dynamique.monnom}}</p>
         <p>HightScore : {{mydonnee_dynamique.hightscore}}</p>
@@ -51,15 +51,13 @@
         </form>
       </div>
       <div class="reponse" ng-show="mydonnee_dynamique.affiche_res">
-        <h1 >la rÃ©ponse Ã©tait : {{mydonnee_dynamique.rep}}</h1>
+        <h1 >la r�ponse �tait : {{mydonnee_dynamique.rep}}</h1>
         <form name="reviewForm_dynamique" ng-submit="mydonnee_dynamique.suivant_inter()">
           <input type="submit" value="Suivant" />
         </form>
       </div>
     </div>
-  </body>
-
-</html>
+  
 
 <script>
   var init = function() {
@@ -69,3 +67,6 @@
 </script>
 
 <script src="https://apis.google.com/js/client.js?onload=init"></script>
+</body>
+
+</html>

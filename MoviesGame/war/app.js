@@ -27,7 +27,7 @@
         gapi.client.scoresendpoint.listscores().execute(
           function(resp){
             $scope.scores = resp.items; 
-            $score.$apply();
+            $scope.$apply();
             console.log(resp);
           });
         
