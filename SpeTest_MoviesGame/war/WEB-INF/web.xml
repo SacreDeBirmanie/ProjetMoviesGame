@@ -26,6 +26,15 @@
 		<url-pattern>/leJeu/get10Questions</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>removeAllMovies</servlet-name>
+		<servlet-class>administration.RemoveMoviesServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>removeAllMovies</servlet-name>
+		<url-pattern>/admin/removeAllMovies</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.jsp</welcome-file>

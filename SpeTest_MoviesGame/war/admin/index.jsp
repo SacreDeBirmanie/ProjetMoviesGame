@@ -41,8 +41,11 @@
       </tr>
       <tr>
         <td><a href="/admin/update_datastore">je veux mettre a jour le datastore</a></td>
-        <tr>
+      <tr>
         <td><a href="/_ah/api/explorer">je veux accéder à l'API</a></td>
+      </tr>
+      <tr>
+        <td><a href="/admin/removeAllMovies">je veux supprimer tous les films</a></td>
       </tr>
       </tr>
     </table>
